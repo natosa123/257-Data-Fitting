@@ -1,0 +1,25 @@
+function [ Error ] = ErrorCalc( Data, P, Q, C, kappa )
+    TOLERANCE = 0.01;
+    tic
+    SimData = ConductionSimulation(Data, P, Q, C, kappa);
+    toc
+    disp('simulation Done');
+    Error = zeros(1,size(Data,2)-4);
+    tic
+    for index = 1:size(Data,1)
+        SimDataPoint = SimData((SimData(:,1) == Data(index,1)), 2:end)
+        Data(index,1)
+        SimData(167,1)
+        Data(index,1)== SimData(167,1)
+        pause
+        if isempty(SimDataPoint)
+            break
+        end
+        Error = Error + abs(Data(index,3:5)-SimDataPoint);
+    end
+    toc
+    disp('Error Calculation Done')
+
+    Error=sum(Error);
+end
+
